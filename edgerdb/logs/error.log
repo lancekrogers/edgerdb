@@ -1,0 +1,38 @@
+terminating connection due to administrator command
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+terminating connection due to administrator command
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+database "tsec" is being accessed by other users
+DETAIL:  There is 1 other session using the database.
+
+role "tanalyst" cannot be dropped because some objects depend on it
+DETAIL:  3 objects in database tsec
+
+FATAL:  role "tanalyst" does not exist
+
+terminating connection due to administrator command
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+database "tsec" does not exist
+
+role "tanalyst" does not exist
+
+FATAL:  role "tanalyst" does not exist
+
+terminating connection due to administrator command
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+database "tsec" does not exist
+
+role "tanalyst" does not exist
+
