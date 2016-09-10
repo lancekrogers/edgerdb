@@ -1,11 +1,14 @@
 from setuptools import setup
 
-setup(name='funniest',
+setup(name='edgerdb',
       version='0.1',
-      description='The funniest joke in the world',
-      url='http://github.com/storborg/funniest',
-      author='Flying Circus',
-      author_email='flyingcircus@example.com',
+      description='A package for installing a database of edger database filings.',
+      url='https://github.com/lancekrogers/edgerdb',
+      author='Lance Rogers',
+      author_email='lancekrogers@gmail.com',
       license='MIT',
-      packages=['funniest'],
+      packages=['edgerdb'],
+      install_requires=[
+          'psycopg2',
+      ],
       zip_safe=False)
