@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: edgerdb
+Version: 0.1
+Summary: A package for installing a database of edger database filings.
+Home-page: https://github.com/lancekrogers/edgerdb
+Author: Lance Rogers
+Author-email: lancekrogers@gmail.com
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN
