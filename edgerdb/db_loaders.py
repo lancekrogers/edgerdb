@@ -1,7 +1,17 @@
 from .helper_functions import *
+from .settings import settings as stg
+from .db_loaders import *
+from ftplib import FTP
+import tempfile
+import zipfile
+import datetime
+import re
+import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+import socket
+socket.setdefaulttimeout(240*60)
 
 def load_daily_file(file_path, connection, tablename):
-    dlog_file = open("edgerdb/logs/daily.log", "a")
     ftp = FTP('ftp.sec.gov', timeout=None)
     ftp.login()
     cursor = connection.cursor()
@@ -23,14 +33,14 @@ def load_daily_file(file_path, connection, tablename):
                 temp.seek(0)
                 for x in range(7):
                     temp.readline()
-                records = [tuple(line.decode('latin-1').rstrip().split('|')) for line in temp]
+                records = [line.decode('latin-1').rstrip().split('|') for line in temp]
                 retry = False
                 print("Successful binary retrieveal on try # {} for {}".format(count, file_path))
         except Exception as e:
-            print("Failed to retrieve binary on try # {} for {}".format(count, file_path), file=dlog_file)
+            print("Failed to retrieve binary on try # {} for {}".format(count, file_path))
             if count > 10:
-                raise e
-            print("Retrying...", file=dlog_file)
+                break
+            print("Retrying...")
             retry = True
     clean_records = []
     for record in records:
@@ -45,15 +55,13 @@ def load_daily_file(file_path, connection, tablename):
             connection.commit()
         except:
             continue
-    print(cursor.statusmessage, file=dllog_file)
+    print(cursor.statusmessage)
     connection.close()
     ftp.close()
-    dlog_file.close()
     return cursor.statusmessage
 
 
 def load_quarterly_file(file_path, connection, tablename):
-    log_file = open("edgerdb/logs/quarterly.log", "a")
     ftp = FTP('ftp.sec.gov', timeout=None)
     ftp.login()
     cursor = connection.cursor()
@@ -77,13 +85,13 @@ def load_quarterly_file(file_path, connection, tablename):
                         z.readline()
                     records = [line.decode('latin-1').rstrip().split('|') for line in z]
                 retry = False
-                print("Successfull Binary Retrieval on try # {} for {}".format(count, file_path), file=log_file)
+                print("Successfull Binary Retrieval on try # {} for {}".format(count, file_path))
         except Exception as e:
-            print("Failure to retrieve binary on try # {} for {}".format(count, file_path), file=log_file)
+            print("Failure to retrieve binary on try # {} for {}".format(count, file_path))
             if count > 10:
                 raise e
-            print(e, file=log_file)
-            print("Retrying...", file=log_file)
+            print(e)
+            print("Retrying...")
 
             retry = True
     clean_records = []
@@ -100,12 +108,10 @@ def load_quarterly_file(file_path, connection, tablename):
             cursor.execute(state)
             connection.commit()
         except Exception as e:
-            print('Error in {}'.format(state), file=log_file)
-            print('\n' + str(e) + "\n", file=log_file)
+            print('Error in {}'.format(state))
+            print('\n' + str(e) + "\n")
             continue
 
     connection.close()
     ftp.close()
-    print(cursor.statusmessage, file=log_file)
-    log_file.close()
     return cursor.statusmessage

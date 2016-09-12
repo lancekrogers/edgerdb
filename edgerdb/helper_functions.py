@@ -1,4 +1,5 @@
-from edgerdb.settings import settings as stg
+from .settings import settings as stg
+from .db_loaders import *
 from ftplib import FTP
 import tempfile
 import zipfile
@@ -9,7 +10,6 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import socket
 socket.setdefaulttimeout(240*60)
 
-error_log_file = open("edgerdb/logs/error.log", "a")
 
 def db():
     connection = psycopg2.connect(
@@ -39,7 +39,7 @@ def clear_sessions(dbname, connection):
         con.execute("select pg_terminate_backend(pg_stat_activity.pid) from pg_stat_activity where pg_stat_activity.datname = '{}';".format(dbname))
         connection.close()
     except Exception as e:
-        print(e, file=error_log_file)
+        print(e)
     print("{} Sessions Cleared".format(count))
 
 
@@ -156,11 +156,3 @@ def load_quarterly_files(q_files,table_name):
         load_quarterly_file(file, db(), table_name)
         update_loaded_master_files(file)
         update_log_table()
-
-def clear_logs():
-    with open("logs/quarterly.log", "w"):
-        pass
-    with open("logs/daily.log", "w"):
-        pass
-    with open("logs/error.log", "w"):
-        pass

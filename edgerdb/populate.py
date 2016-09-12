@@ -1,12 +1,15 @@
 from .db_loaders import *
+from .helper_functions import load_daily_indices, statement, load_quarterly_files, db
 
 def populate_database(daily_files, quarterly_files):
     d_files = daily_files
     q_files = quarterly_files
     tablename = "index_files"
-    qlog_file = open("logs/quarterly.log", "a")
-    loaded_files =[x[0] for x in statement("select path from loaded_master_files;", db())]
-    qlog_file.write('populate_database is running\n')
+    try:
+        loaded_files =[x[0] for x in statement("select path from loaded_master_files;", db())]
+    except Exception as e:
+        loaded_files = []
+        print(e)
 
     def remove_already_loaded_files(input_files, loaded_master_files):
         short_list = input_files
@@ -32,18 +35,19 @@ def populate_database(daily_files, quarterly_files):
         return files_left
 
     quarterly_files = remove_already_loaded_files(q_files, loaded_files)
-    qlog_file.write(str(quarterly_files))
     daily_files = remove_already_loaded_files(d_files, loaded_files)
     try:
         load_quarterly_files(quarterly_files, tablename)
-    except:
-        lr_select_statement = """select * from (select cast(substr( cast (date as text), 1, 4) as integer) from
-        {} order by date desc) as foo limit 1;""".format(tablename)
-        last_year = statement(lr_select_statement, db())
-        if last_year:
-            continuation = quarterly_file_continuation(quarterly_files, last_year[0][0])
-            load_quarterly_files(continuation, tablename)
-        else:
-            print("Quarterly Files Failed to load", file=qlog_file)
-    qlog_file.close()
+    except Exception as e:
+        print(e)
+        try:
+            lr_select_statement = """select * from (select cast(substr( cast (date as text), 1, 4) as integer) from
+            {} order by date desc) as foo limit 1;""".format(tablename)
+            last_year = statement(lr_select_statement, db())
+            if last_year:
+                continuation = quarterly_file_continuation(quarterly_files, last_year[0][0])
+                load_quarterly_files(continuation, tablename)
+        except Exception as e:
+            print("Quarterly Files Failed to load")
+            print(e)
     load_daily_indices(daily_files, tablename)

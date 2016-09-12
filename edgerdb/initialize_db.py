@@ -1,4 +1,6 @@
 from .helper_functions import *
+from .settings import settings as stg
+import datetime
 
 def create_db_and_user():
 
@@ -18,7 +20,6 @@ def create_db_and_user():
         print('User: {} created'.format(new_username))
     except Exception as e:
         print('User: {} already exist'.format(new_username))
-        print(e, file=error_log_file)
     try:
         connection_2 = old_db()
         connection_2.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
@@ -27,7 +28,6 @@ def create_db_and_user():
         connection_2.close()
     except Exception as e:
         print('Database {} already exist.'.format(new_db))
-        print(e, file=error_log_file)
 
 
 def initialize_database():
@@ -50,15 +50,12 @@ def delete_user_and_db():
             clear_sessions(dbname, db())
         except Exception as e:
             print('A problem occured clearing sessions for {}'.format(dbname))
-            print(e, file=error_log_file)
         try:
             clear_sessions(stg.DEFAULT_DBNAME, old_db())
         except Exception as e:
             print('A problem occured clearing sessions for {}'.format(stg.DEFAULT_DBNAME))
-            print(e, file=error_log_file)
     except Exception as e:
         print('Unable to clear sessions')
-        print(e, file=error_log_file)
     try:
         connection_1 = old_db()
         connection_1.set_isolation_level(0)
@@ -67,7 +64,6 @@ def delete_user_and_db():
         print('database {} deleted'.format(dbname))
     except Exception as e:
         print("database {} either can't be found or has been deleted".format(dbname))
-        print(e, file=error_log_file)
     try:
         connection_2 = old_db()
         connection_2.set_isolation_level(0)
@@ -76,4 +72,3 @@ def delete_user_and_db():
         print('user {} deleted'.format(username))
     except Exception as e:
         print("user {} either can't be found or has been deleted".format(username))
-        print(e, file=error_log_file)

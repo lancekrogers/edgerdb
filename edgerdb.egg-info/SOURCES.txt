@@ -1,3 +1,4 @@
+MANIFEST.in
 setup.py
 edgerdb/__init__.py
 edgerdb/db_loaders.py
@@ -11,3 +12,5 @@ edgerdb.egg-info/dependency_links.txt
 edgerdb.egg-info/not-zip-safe
 edgerdb.egg-info/requires.txt
 edgerdb.egg-info/top_level.txt
+edgerdb/settings/__init__.py
+edgerdb/settings/settings.py

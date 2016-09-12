@@ -11,6 +11,6 @@ PORT = '5432'
 
 
 # These credentials will be used to create the new database for this package
-NEW_DBNAME = 'tsec'
-NEW_USERNAME = 'tanalyst'
+NEW_DBNAME = 'edgar'
+NEW_USERNAME = 'analyst'
 NEW_PASSWORD = ''
