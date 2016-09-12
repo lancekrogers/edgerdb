@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: edgerdb
-Version: 1.1.2.2
+Version: 1.1.2.3
 Summary: A package for installing a database of edgar database filings.
 Home-page: https://github.com/lancekrogers/edgerdb
 Author: Lance Rogers
