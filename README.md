@@ -4,7 +4,7 @@
 <p>This is a package that builds a local postgres database of SEC filings taken from ftp.sec.gov</p>
 
 
-<p>This package can be pip installed into the desired direcory:</p>
+<p>This package can be pip installed into the desired directory:</p>
 
 ```pip install edgerdb```
 
