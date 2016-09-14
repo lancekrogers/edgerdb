@@ -21,12 +21,12 @@ edger.create_and_load()</pre>
 
 <p>This installs a database with three tables.</p>
 <ul>
-  <li>index_files</li>
+  <li>filings</li>
   <li>loaded_master_files</li>
   <li>last_updated</li>
 </ul>
-<p>index_files is the table that will contain information on all the SEC filings.</p>
-<p>loaded_master_files contains a list of all the files currently loaded into the index_files table</p>
+<p>filings is the table that will contain information on all the SEC filings.</p>
+<p>loaded_master_files contains a list of all the files currently loaded into the filings table</p>
 <p>last_updated has the time that the last file was loaded into the database</p><br />
 <p> To remove the database and user run: </p>
 
@@ -62,11 +62,11 @@ con.close()
 <p>Ex:</p>
 
 <pre>
-top_five_paths = hlp.statement("select path from index_files limit 5;", hlp.db(), close=True)
+top_five_paths = hlp.statement("select path from filings limit 5;", hlp.db(), close=True)
 </pre>
 
 <p>
-retrieve_document() requires a path to file from index_files table.  It takes this as input and downloads a copy of the file from edgar and stores it in a "sec_filings" directory in the same directory as your project. This can be changed with the optional directory keyword argument.
+retrieve_document() requires a path to file from filings table.  It takes this as input and downloads a copy of the file from edgar and stores it in a "sec_filings" directory in the same directory as your project. This can be changed with the optional directory keyword argument.
 </p>
 <p>Ex:</p>
 <pre>

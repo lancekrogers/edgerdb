@@ -33,7 +33,7 @@ def create_db_and_user():
 def initialize_database():
     timestamp = str(datetime.datetime.now())
     create_db_and_user()
-    create_or_replace_table(db(),'index_files', '''cik INTEGER, company VARCHAR,
+    create_or_replace_table(db(),'filings', '''cik INTEGER, company VARCHAR,
                                                     form_type VARCHAR, date INTEGER, path VARCHAR''')  # main table
     create_or_replace_table(db(), 'loaded_master_files', '''path VARCHAR, timestamp VARCHAR''')# loaded_master_files table
     create_or_replace_table(db(), 'log_table', 'last_updated VARCHAR, date_of_creation VARCHAR')# log table

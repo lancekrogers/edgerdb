@@ -4,7 +4,7 @@ from .helper_functions import load_daily_indices, statement, load_quarterly_file
 def populate_database(daily_files, quarterly_files):
     d_files = daily_files
     q_files = quarterly_files
-    tablename = "index_files"
+    tablename = "filings"
     try:
         loaded_files =[x[0] for x in statement("select path from loaded_master_files;", db())]
     except Exception as e:

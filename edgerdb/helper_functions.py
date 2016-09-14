@@ -118,7 +118,7 @@ def latest_index_in_db(tablename, connection):
 
 # Use this function to load the latest daily files to the database
 def load_latest_files(daily_files):
-    tablename = "index_files"
+    tablename = "filings"
     try:
         connection = db()
         latest_in_db = latest_index_in_db(tablename, connection)[0]
