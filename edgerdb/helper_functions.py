@@ -124,7 +124,7 @@ def load_latest_files(daily_files):
         latest_in_db = latest_index_in_db(tablename, connection)[0]
         connection.close()
     except:
-        latest_in_db = 1
+        latest_in_db = 999999999999
     for file in range(len(daily_files)):
         ddate = int(daily_files[file].split('.')[1])
         if latest_in_db < ddate:
