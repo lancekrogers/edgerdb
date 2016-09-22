@@ -1,5 +1,5 @@
 from .settings import settings as stg
-from .db_loaders import *
+from .db_loaders import load_daily_file, load_quarterly_file
 from ftplib import FTP
 import tempfile
 import os
@@ -125,6 +125,7 @@ def load_latest_files(daily_files):
         connection.close()
     except:
         latest_in_db = 999999999999
+    print("Latest File in DB: {}".format(latest_in_db))
     for file in range(len(daily_files)):
         ddate = int(daily_files[file].split('.')[1])
         if latest_in_db < ddate:

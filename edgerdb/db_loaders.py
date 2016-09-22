@@ -1,6 +1,5 @@
 from .helper_functions import *
 from .settings import settings as stg
-from .db_loaders import *
 from ftplib import FTP
 import tempfile
 import zipfile
@@ -39,7 +38,8 @@ def load_daily_file(file_path, connection, tablename):
         except Exception as e:
             print("Failed to retrieve binary on try # {} for {}".format(count, file_path))
             if count > 10:
-                break
+                retry = False
+                return "File {} did not load".format(file_path)
             print("Retrying...")
             retry = True
     clean_records = []
