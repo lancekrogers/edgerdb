@@ -83,8 +83,22 @@ clear_sessions(dbname, connection)
 <pre>
 hlp.clear_sessions('edgar', hlp.db())
 </pre>
+
 <pre>
 hlp.clear_sessions('edgar', old_db())
+</pre>
+<p> The database can easily be updated by providing the last date from the files in the database and
+    the list of daily_files
+</p>
+<p>Ex:</p>
+<pre>
+from edgerdb import helper_functions as hlp
+
+daily_files = hlp.generate_daily_file_paths()
+
+last_date_in_db = int(hlp.latest_index_in_db('filings', hlp.db())[0])
+
+hlp.load_latest_files(daily_files, last_date=last_date_in_db)
 </pre>
 <p> dir() can be used to explore the other functions that come with helper_functions </p>
 

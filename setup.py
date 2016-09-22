@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='edgerdb',
-      version='1.1.2.6',
+      version='1.1.2.8',
       description='A package for installing a database of edgar database filings.',
       url='https://github.com/lancekrogers/edgerdb',
       author='Lance Rogers',
